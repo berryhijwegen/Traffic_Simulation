@@ -16,9 +16,9 @@ public class SpawnCars : MonoBehaviour
     {
         if (time_no_car_spawned >= delay && transform.childCount < maxCars){
             GameObject go = Instantiate(getRandomPrefab());
-            foreach (gameObject marking in markings)
+            foreach (GameObject marking in markings)
             {
-                go.GetComponent.<Patrol2>().points.Add(marking.transform);
+                go.GetComponent<Patrol2>().points.Add(marking.transform);
             }
             
             go.transform.position = transform.position;

@@ -5,10 +5,10 @@ using UnityEngine.AI;
 
 public class Patrol2 : MonoBehaviour
 {
-    public Transform[] points;
+    public List<Transform> points;
     private int destPoint = 0;
-    public float step;
-    public transform destination;
+    public float speed;
+    public Vector3 destination;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class Patrol2 : MonoBehaviour
     void GotoNextPoint()
     {
         // Returns if no points have been set up
-        if (points.Length == 0)
+        if (points.Count == 0)
             return;
 
         // Set the agent to go to the currently selected destination.
@@ -27,7 +27,7 @@ public class Patrol2 : MonoBehaviour
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
-        destPoint = (destPoint + 1) % points.Length;
+        destPoint = (destPoint + 1) % points.Count;
     }
 
 
@@ -35,10 +35,10 @@ public class Patrol2 : MonoBehaviour
     {
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if (Vector3.Distance(transform.position, destination.position) < 0.5f) {
+        if (Vector3.Distance(transform.position, destination) < 0.5f) {
             GotoNextPoint();
         }
-        step =  speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, destination, step);
     }
 }

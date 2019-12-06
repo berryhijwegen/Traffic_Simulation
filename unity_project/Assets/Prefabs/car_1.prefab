@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 487696}
   - component: {fileID: 3315454}
   - component: {fileID: 2354670}
-  - component: {fileID: 114059965381295250}
+  - component: {fileID: 114058523241166156}
   m_Layer: 0
   m_Name: car_1
   m_TagString: Untagged
@@ -397,7 +397,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &114059965381295250
+--- !u!114 &114058523241166156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,3 +409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8cf3e7c38f9d741892cae38d5f75f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  speed: 2
+  destination: {x: 0, y: 0, z: 0}
