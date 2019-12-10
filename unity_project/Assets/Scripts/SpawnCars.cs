@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnCars : MonoBehaviour
 {
     public List<GameObject> prefabs;
-    public List<GameObject> markings;
+    public GameObject markings;
     public int maxCars;
     public int direction;
     public int delay;
@@ -16,7 +16,7 @@ public class SpawnCars : MonoBehaviour
     {
         if (time_no_car_spawned >= delay && transform.childCount < maxCars){
             GameObject go = Instantiate(getRandomPrefab());
-            foreach (GameObject marking in markings)
+            foreach (Transform marking in markings.transform)
             {
                 go.GetComponent<Patrol2>().points.Add(marking.transform);
             }
