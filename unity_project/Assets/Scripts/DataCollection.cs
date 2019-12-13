@@ -9,6 +9,7 @@ public class DataCollection : MonoBehaviour
     public GameObject simulator;
     
     void Start() {
+        // Set decimal style to "." instead of "," to prevent csv issues.
         System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
         customCulture.NumberFormat.NumberDecimalSeparator = ".";
 
@@ -17,6 +18,7 @@ public class DataCollection : MonoBehaviour
 
     void Update()
     {  
+        // Write car data to csv file
         foreach (Transform car in carSpawner.transform)
         {
             StreamWriter w = new StreamWriter("data/car_data.csv", append: true);

@@ -6,20 +6,20 @@ using UnityEngine;
 
 public class Simulator : MonoBehaviour
 {
-    public GameObject dataCollector;
-    public GameObject carSpawner;
-    public int ticker = 0;
-    public int simulationDuration = 500;
-    public int simulationNumber = 0;
-
-    private List<(float, int, int)> allCombinations;
-    private List<float> maxSpeedOptions = new List<float>() {3.5f, 4.0f, 4.5f, 5.0f};
-    private List<int> spawnRateOptions = new List<int>() {60, 80, 100, 120}; 
-    private List<int> maxCarsOptions = new List<int>() {10, 20, 40, 60}; 
+    public  GameObject                  dataCollector;
+    public  GameObject                  carSpawner;
+    public  int                         ticker = 0;
+    public  int                         simulationDuration = 500;
+    public  int                         simulationNumber = 0;
+    private List<(float, int, int)>     allCombinations;
+    private List<float>                 maxSpeedOptions = new List<float>() {3.5f, 4.0f, 4.5f, 5.0f};
+    private List<int>                   spawnRateOptions = new List<int>() {60, 80, 100, 120}; 
+    private List<int>                   maxCarsOptions = new List<int>() {10, 20, 40, 60}; 
 
     // Start is called before the first frame update
     void Start()
     {
+        // Set decimal style to "." instead of "," to prevent csv issues.
         System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo) System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
         customCulture.NumberFormat.NumberDecimalSeparator = ".";
 
@@ -32,6 +32,7 @@ public class Simulator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if simulation is over, if so go to next simulation with another combination.
         ticker++;
         if (ticker >= simulationDuration){
             endSimulation();
@@ -48,6 +49,8 @@ public class Simulator : MonoBehaviour
 
     }
 
+
+    // Function to get all combinations (max speed, spawn rate, max cars)
     List<(float, int, int)> getAllCombinations(){
         List<(float, int, int)> allCombinations = new List<(float, int, int)>();
 
@@ -65,6 +68,8 @@ public class Simulator : MonoBehaviour
         return allCombinations;
     }
 
+
+    // Function to start simulation by setting up new parameters and saving them to the csv file.
     void startSimulation()
     {
         (float, int, int) newCombination = allCombinations[simulationNumber];
@@ -76,6 +81,7 @@ public class Simulator : MonoBehaviour
         saveSimulationData();
     }
 
+    // Function to end simulation by destroying all objects.
     void endSimulation(){
         Debug.Log("Ending");
         foreach (Transform car in carSpawner.transform)
@@ -84,6 +90,7 @@ public class Simulator : MonoBehaviour
         }
     }
 
+    // Write simulation data to csv-file.
     void saveSimulationData()
     {
         StreamWriter w = new StreamWriter("data/simulation_data.csv", append: true);

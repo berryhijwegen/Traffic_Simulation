@@ -24,11 +24,6 @@ public class FollowRoad : MonoBehaviour
     public  float           breakPercBeforeLaneSwitch = 0.8f;
     public  bool            debug_showray = false;
 
-    //bugged
-    /*
-    private int destPointLaneReached;
-    private bool canSwitchLane = true;
-    */
 
     void Start()
     {
@@ -55,7 +50,7 @@ public class FollowRoad : MonoBehaviour
         GoToNextPoint(pointsRight);
     }
 
-    void GoToNextPoint(List<Transform>points)
+    void GoToNextPoint(List<Transform> points)
     {
         //Destroy gameobject at end of lane, or if no navpoints are found
         if (totalPoints == 0 || destPoint == totalPoints)
@@ -74,7 +69,7 @@ public class FollowRoad : MonoBehaviour
         Vector3 rayOrigin = transform.position + new Vector3(0, 0.0f, 2.0f);
         speedCur = Vector3.Project(agent.desiredVelocity, transform.forward).magnitude;
 
-        //Pass by cars
+        // Pass by cars
         if (!left && destPoint > 1)
         {
             if (speedCur < agent.speed * breakPercBeforeLaneSwitch || Physics.Raycast(rayOrigin, pointsRight[Mathf.Clamp(destPoint + navPointsToLookAhead, 0, totalPoints - 1)].position, 3, layerMask))
@@ -87,26 +82,12 @@ public class FollowRoad : MonoBehaviour
             }
         }
 
-        //Doesn't work: switching back to right lane
-        /*
-        else if (canSwitchLane && left &&
-                        !(Physics.Raycast(rayOrigin, points_right[Mathf.Clamp(destPoint - 1, 0, total_points - 1)].position, 3, layer_mask)
-                        && Physics.Raycast(rayOrigin, points_right[Mathf.Clamp(destPoint, 0, total_points - 1)].position, 3, layer_mask)
-                        && Physics.Raycast(rayOrigin, points_right[Mathf.Clamp(destPoint + 1, 0, total_points - 1)].position, 3, layer_mask)))
-        {
-            left = false;
-            destPoint++;
-            agent.destination = points_right[destPoint].position;
-            agent.speed = originalSpeed;
-            destPointLaneReached = destPoint + 2;
-            canSwitchLane = false;
-        }
-        */
-
-        //Debug: show rays for laneswitching
+        // Debug: show rays for laneswitching
         if( debug_showray)
             Debug.DrawLine(transform.position + new Vector3(0, 0.3f, 0.7f), pointsRight[Mathf.Clamp(destPoint + navPointsToLookAhead, 0, totalPoints - 1)].position, blocked ? Color.red : Color.green);
 
+
+        // Check if agent reached position, if so set next point
         if (!agent.pathPending && agent.remainingDistance < 1f)
         {
             if (left)
