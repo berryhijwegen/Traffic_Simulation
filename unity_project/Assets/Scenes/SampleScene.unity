@@ -541,12 +541,12 @@ PrefabInstance:
     - target: {fileID: 4269146332362866603, guid: 216a727d8360cde489e5183318abdd12,
         type: 3}
       propertyPath: delay
-      value: 60
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 4269146332362866603, guid: 216a727d8360cde489e5183318abdd12,
         type: 3}
       propertyPath: maxCars
-      value: 10
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 6397593619240134304, guid: 216a727d8360cde489e5183318abdd12,
         type: 3}
